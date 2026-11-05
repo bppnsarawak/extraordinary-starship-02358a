@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Makan Malam 30 Tahun PAS Sarawak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --green:#0b5d3b; --green-d:#063d27; --green-l:#e6f2ea;
+  --gold:#d4af37; --gold-d:#a8851a; --gold-l:#f6ecc0;
+  --cream:#fbf8ee; --ink:#1d2a24; --muted:#5e6b64; --line:#e3dcc3;
+  --danger:#b3261e; --radius:16px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--cream);color:var(--ink);line-height:1.55}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+
+/* Banner */
+.banner{background:var(--green-d);border-bottom:4px solid var(--gold)}
+.banner img{display:block;width:100%;max-height:340px;object-fit:cover}
+.banner .ph{padding:34px 16px;text-align:center;color:#fff;background:
+  radial-gradient(circle at 15% 20%,rgba(212,175,55,.25) 0 90px,transparent 91px),
+  radial-gradient(circle at 85% 80%,rgba(212,175,55,.2) 0 120px,transparent 121px),
+  linear-gradient(135deg,var(--green-d),var(--green))}
+.banner .ph .t30{font-family:'Cinzel',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1}
+.banner .ph h1{margin:6px 0 2px;font-size:22px;font-weight:600}
+.banner .ph p{margin:0;color:var(--gold-l);font-size:14px}
+
+.hero{text-align:center;padding:26px 0 6px}
+.hero h2{font-family:'Cinzel',serif;color:var(--green);font-size:26px;margin:0 0 4px}
+.hero p{margin:0;color:var(--muted);font-size:14px}
+.divider{height:3px;width:90px;margin:14px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* Progress */
+.steps{display:flex;gap:6px;margin:22px 0 18px}
+.steps div{flex:1;text-align:center;font-size:11.5px;color:var(--muted);padding-top:8px;border-top:4px solid var(--line);font-weight:500}
+.steps div.on{border-color:var(--gold);color:var(--green);font-weight:600}
+.steps div.done{border-color:var(--green);color:var(--green)}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:0 2px 10px rgba(11,93,59,.06)}
+.card h3{margin:0 0 12px;font-size:16px;color:var(--green);display:flex;align-items:center;gap:8px}
+.card h3 .n{background:var(--green);color:var(--gold);width:24px;height:24px;border-radius:50%;font-size:13px;display:inline-grid;place-items:center}
+
+/* Mode */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mode{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;font-family:inherit;color:var(--ink);transition:.15s}
+.mode b{display:block;font-size:14px}
+.mode span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.mode.on{border-color:var(--gold);background:linear-gradient(180deg,var(--gold-l),#fff);box-shadow:0 0 0 3px rgba(212,175,55,.25)}
+.mode.on b{color:var(--green)}
+
+/* Form */
+label{display:block;font-size:13px;font-weight:500;margin:0 0 4px}
+label small{color:var(--muted);font-weight:400}
+input[type=text],input[type=tel],input[type=email],input[type=number]{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}
+input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(11,93,59,.15)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f{margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--green);border-color:var(--green);color:var(--gold);font-weight:600}
+.hp{position:absolute;left:-9999px;opacity:0}
+
+/* Meja */
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:0 0 10px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.mgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.tbl{border:2px solid var(--green);background:var(--green-l);border-radius:12px;padding:8px 4px 7px;text-align:center;cursor:pointer;font:inherit;color:var(--green-d);position:relative}
+.tbl .no{font-weight:700;font-size:18px;line-height:1.1}
+.tbl .lbl{font-size:10.5px;display:block;margin-top:2px}
+.tbl .dots{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin:5px auto 0;max-width:56px}
+.tbl .dots u{width:8px;height:8px;border-radius:50%;background:var(--green);text-decoration:none}
+.tbl .dots u.x{background:#c9c4ae}
+.tbl.part{border-color:var(--gold-d);background:var(--gold-l)}
+.tbl.full,.tbl.lock{border-color:#cfcab4;background:#efede3;color:#9a9684;cursor:not-allowed}
+.tbl.full .dots u,.tbl.lock .dots u{background:#c9c4ae}
+.tbl.sel{background:var(--green);color:var(--gold);border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.45)}
+.tbl.sel .dots u{background:var(--gold)}
+.tbl.sel .dots u.x{background:rgba(255,255,255,.35)}
+.qty{display:flex;align-items:center;gap:12px;margin-top:14px}
+.qty button{width:38px;height:38px;border-radius:50%;border:2px solid var(--green);background:#fff;color:var(--green);font-size:20px;font-weight:700;cursor:pointer}
+.qty b{min-width:34px;text-align:center;font-size:20px}
+
+/* Ringkasan */
+.sum{background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border-radius:14px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:2px solid var(--gold)}
+.sum .l{font-size:13px;color:var(--gold-l)}
+.sum .v{font-family:'Cinzel',serif;font-size:28px;color:var(--gold);font-weight:700;white-space:nowrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:14px 22px;font:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:.15s;width:100%}
+.btn.gold{background:linear-gradient(180deg,#e6c24f,var(--gold));color:var(--green-d);box-shadow:0 3px 0 var(--gold-d)}
+.btn.gold:hover{filter:brightness(1.05)}
+.btn.green{background:var(--green);color:var(--gold);box-shadow:0 3px 0 var(--green-d)}
+.btn.line{background:#fff;color:var(--green);border:2px solid var(--green)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.err{display:none;background:#fdecea;border:1px solid #f3b8b3;color:var(--danger);border-radius:10px;padding:10px 12px;font-size:13.5px;margin:12px 0}
+.note{font-size:12.5px;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;margin:14px 0}
+.check input{margin-top:4px;width:18px;height:18px;accent-color:var(--green)}
+
+/* Langkah 2/3 */
+.siri{text-align:center;background:var(--gold-l);border:2px dashed var(--gold-d);border-radius:14px;padding:14px;margin-bottom:14px}
+.siri small{display:block;color:var(--muted);font-size:12px}
+.siri b{font-family:'Cinzel',serif;font-size:26px;color:var(--green-d);letter-spacing:1px}
+ol.how{padding-left:20px;margin:8px 0 16px;font-size:14px}
+ol.how li{margin-bottom:6px}
+.drop{border:2px dashed var(--green);background:var(--green-l);border-radius:14px;padding:22px 14px;text-align:center;cursor:pointer;display:block}
+.drop.has{background:#fff;border-style:solid}
+.drop b{color:var(--green)}
+.drop input{display:none}
+.thanks{text-align:center;padding:10px 0 4px}
+.thanks .tick{width:64px;height:64px;margin:0 auto 10px;border-radius:50%;background:var(--green);color:var(--gold);display:grid;place-items:center;font-size:34px;border:3px solid var(--gold)}
+.thanks h3{justify-content:center;font-size:20px}
+.stmt{border:2px solid var(--green);border-radius:14px;overflow:hidden;margin:14px 0}
+.stmt .hd{background:var(--green);color:var(--gold);text-align:center;padding:10px;font-weight:600;letter-spacing:.5px}
+.stmt table{width:100%;border-collapse:collapse;font-size:14px}
+.stmt td{padding:8px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.stmt td:first-child{color:var(--muted);width:42%}
+.stmt tr:last-child td{border-bottom:0}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
+.badge.w{background:var(--gold-l);color:#7a5e00}
+.badge.o{background:#d6efdd;color:var(--green-d)}
+.badge.x{background:#fdecea;color:var(--danger)}
+details.look{margin-top:6px}
+details.look summary{cursor:pointer;color:var(--green);font-weight:600;font-size:14px;padding:6px 0}
+.hide{display:none!important}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 16px 40px}
+footer b{color:var(--green)}
+.ov{position:fixed;inset:0;background:rgba(6,61,39,.55);display:none;place-items:center;z-index:50}
+.ov.on{display:grid}
+.ov div{background:#fff;border-radius:14px;padding:20px 26px;font-weight:600;color:var(--green);border:2px solid var(--gold)}
+
+@media (max-width:560px){
+  .modes{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+  .mgrid{grid-template-columns:repeat(3,1fr)}
+  .hero h2{font-size:21px}
+  .sum .v{font-size:23px}
+  .banner .ph .t30{font-size:44px}
+}
+</style>
+</head>
+<body>
+
+<div class="banner" id="banner">
+  <div class="ph" id="bannerPh">
+    <div class="t30">30</div>
+    <h1>Majlis Makan Malam 30 Tahun PAS Sarawak</h1>
+    <p>Bersama Memperkasa Perjuangan</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <h2>Tempahan &amp; Pembayaran</h2>
+    <p id="tarikhTempat">Makan Malam 30 Tahun PAS Sarawak</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="steps" id="steps">
+    <div class="on">1. Maklumat</div>
+    <div>2. Bayaran</div>
+    <div>3. Resit</div>
+    <div>4. Penyata</div>
+  </div>
+
+  <!-- LANGKAH 1 -->
+  <section id="s1">
+    <div class="card">
+      <h3><span class="n">1</span> Pilih jenis penyertaan</h3>
+      <div class="modes" id="modes">
+        <button type="button" class="mode on" data-m="MEJA"><b>Tempah Meja</b><span id="lblMeja">RM1,500 / meja</span></button>
+        <button type="button" class="mode" data-m="KERUSI"><b>Tempah Kerusi</b><span id="lblKerusi">RM150 / kerusi</span></button>
+        <button type="button" class="mode" data-m="SUMBANGAN"><b>Penyumbang Program</b><span>Sumbangan ikhlas</span></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="n">2</span> Maklumat anda</h3>
+      <div class="f">
+        <label>Kategori</label>
+        <div class="chips" id="kat">
+          <button type="button" class="chip on" data-k="AJK PAS">AJK PAS</button>
+          <button type="button" class="chip" data-k="Ahli PAS">Ahli PAS</button>
+          <button type="button" class="chip" data-k="Orang Awam">Orang Awam</button>
+        </div>
+      </div>
+      <div class="f"><label for="nama">Nama penuh</label><input type="text" id="nama" autocomplete="name" placeholder="Seperti dalam kad pengenalan"></div>
+      <div class="grid2">
+        <div class="f"><label for="tel">No telefon</label><input type="tel" id="tel" autocomplete="tel" inputmode="tel" placeholder="012-3456789"></div>
+        <div class="f"><label for="emel">Emel <small>(pilihan)</small></label><input type="email" id="emel" autocomplete="email" placeholder="nama@emel.com"></div>
+      </div>
+      <div class="grid2">
+        <div class="f"><label for="kp">No kad pengenalan <small>(pilihan)</small></label><input type="text" id="kp" inputmode="numeric" placeholder="Tanpa sengkang"></div>
+        <div class="f"><label for="org" id="orgLbl">Kawasan / Cawangan / Organisasi <small>(pilihan)</small></label><input type="text" id="org" placeholder="Contoh: Kawasan Kuching"></div>
+      </div>
+      <input class="hp" type="text" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    </div>
+
+    <div class="card" id="mejaCard">
+      <h3><span class="n">3</span> <span id="mejaTitle">Pilih nombor meja</span></h3>
+      <div class="legend">
+        <span><i style="background:var(--green-l);border:1.5px solid var(--green)"></i>Kosong</span>
+        <span><i style="background:var(--gold-l);border:1.5px solid var(--gold-d)"></i>Separa</span>
+        <span><i style="background:#efede3;border:1.5px solid #cfcab4"></i>Penuh / tidak tersedia</span>
+      </div>
+      <div class="mgrid" id="mgrid"></div>
+      <div class="qty hide" id="qtyBox">
+        <span style="font-size:14px;font-weight:500">Bilangan kerusi:</span>
+        <button type="button" id="qm">−</button><b id="qv">1</b><button type="button" id="qp">+</button>
+        <span class="note" id="qnote"></span>
+      </div>
+    </div>
+
+    <div class="card hide" id="sumCard">
+      <h3><span class="n">3</span> Jumlah sumbangan</h3>
+      <div class="chips" id="amts">
+        <button type="button" class="chip" data-a="50">RM50</button>
+        <button type="button" class="chip on" data-a="100">RM100</button>
+        <button type="button" class="chip" data-a="200">RM200</button>
+        <button type="button" class="chip" data-a="500">RM500</button>
+        <button type="button" class="chip" data-a="1000">RM1,000</button>
+      </div>
+      <div class="f" style="margin-top:12px"><label for="amt">Atau masukkan jumlah lain (RM)</label><input type="number" id="amt" min="1" step="1" inputmode="decimal" value="100"></div>
+    </div>
+
+    <div class="sum" id="sum">
+      <div><div class="l" id="sumL">Jumlah bayaran</div><div class="l" id="sumD"></div></div>
+      <div class="v" id="sumV">RM 0</div>
+    </div>
+
+    <div class="check"><input type="checkbox" id="agree"><label for="agree" style="font-weight:400;margin:0">Saya faham bahawa tempahan hanya sah selepas bayaran disahkan oleh Sekretariat Program, dan saya akan memuat naik resit bayaran.</label></div>
+    <div class="err" id="err"></div>
+    <button class="btn gold" id="payBtn" type="button">Bayar Sekarang</button>
+    <p class="note" style="text-align:center;margin-top:8px">Halaman pembayaran InfaqPay akan dibuka dalam tetingkap pop-up.</p>
+
+    <div class="card" style="margin-top:22px">
+      <details class="look" id="look">
+        <summary>Sudah ada no siri? Semak status / hantar resit</summary>
+        <div class="grid2" style="margin-top:8px">
+          <div class="f"><label for="lsiri">No siri</label><input type="text" id="lsiri" placeholder="PAS30-M-0001"></div>
+          <div class="f"><label for="ltel">No telefon yang didaftarkan</label><input type="tel" id="ltel" inputmode="tel"></div>
+        </div>
+        <div class="err" id="lerr"></div>
+        <button class="btn line" id="lookBtn" type="button">Semak</button>
+      </details>
+    </div>
+  </section>
+
+  <!-- LANGKAH 2 & 3 -->
+  <section id="s2" class="hide">
+    <div class="card">
+      <div class="siri"><small>No siri pembayaran anda</small><b id="siri2"></b></div>
+      <h3><span class="n">2</span> Buat pembayaran</h3>
+      <ol class="how">
+        <li>Klik <b>Buka Halaman Pembayaran</b> di bawah (jika pop-up tidak terbuka, benarkan pop-up pada pelayar anda).</li>
+        <li>Bayar sebanyak <b id="amt2"></b> melalui InfaqPay.</li>
+        <li>Simpan resit atau tangkap skrin pembayaran, kemudian muat naik di bawah.</li>
+      </ol>
+      <div class="note" style="margin-bottom:12px">Jika ada ruangan catatan, sila nyatakan no siri <b id="siri2b"></b> untuk memudahkan pengesahan.</div>
+      <button class="btn gold" id="reopen" type="button">Buka Halaman Pembayaran</button>
+    </div>
+
+    <div class="card">
+      <h3><span class="n">3</span> Muat naik resit pembayaran</h3>
+      <label class="drop" id="drop" for="file">
+        <div style="font-size:30px">📎</div>
+        <b id="dropT">Pilih fail resit</b>
+        <div class="note" id="dropS">Format: JPG, PNG, PDF (maksimum 8MB)</div>
+        <input type="file" id="file" accept=".jpg,.jpeg,.png,.webp,.heic,.heif,.pdf,image/*,application/pdf">
+      </label>
+      <div class="err" id="err2"></div>
+      <button class="btn green" id="sendBtn" type="button" style="margin-top:14px" disabled>Hantar Resit</button>
+    </div>
+  </section>
+
+  <!-- LANGKAH 4 -->
+  <section id="s3" class="hide">
+    <div class="card">
+      <div class="thanks">
+        <div class="tick">✓</div>
+        <h3 id="thTitle">Terima kasih atas sumbangan anda</h3>
+        <p style="margin:0;font-size:14px" id="thMsg"></p>
+      </div>
+      <div class="stmt">
+        <div class="hd">PENYATA PEMBAYARAN</div>
+        <table id="stmt"></table>
+      </div>
+      <button class="btn gold" id="pdfBtn" type="button">⬇ Muat Turun Penyata (PDF)</button>
+      <button class="btn line" id="againBtn" type="button" style="margin-top:10px">Buat Tempahan Lain</button>
+      <p class="note" style="text-align:center;margin-top:12px">Simpan no siri anda. Anda boleh menyemak status pengesahan pada bila-bila masa dengan no siri dan no telefon.</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <b>Sekretariat Makan Malam 30 Tahun PAS Sarawak</b><br>
+  Setiap pembayaran akan disahkan oleh Sekretariat Program.
+</footer>
+
+<div class="ov" id="ov"><div id="ovT">Sila tunggu…</div></div>
+
+<script>
+/* Kosongkan jika index.html dihoskan dalam Apps Script. Isi URL Web App (…/exec)
+   hanya jika anda menghoskan index.html di tempat lain. */
+const API_URL = 'https://script.google.com/macros/s/AKfycbysHlgjlodspEC4HbuMb0CDLuUcDZUNq1kPOvfqHimPhs5xgfy2wxNyPHqaC1On3sc6Nw/exec';
+
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rm = n => 'RM ' + Number(n).toLocaleString('en-MY', {minimumFractionDigits: (n % 1 ? 2 : 0), maximumFractionDigits: 2});
+const rm2 = n => 'RM ' + Number(n).toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const JENIS = {MEJA: 'Tempahan Meja', KERUSI: 'Tempahan Kerusi', SUMBANGAN: 'Penyumbang Program'};
+
+const st = {mode: 'MEJA', kat: 'AJK PAS', meja: null, qty: 1, amt: 100, cfg: null, rec: null, tel: '', file: null, popup: null};
+
+function api(action, payload) {
+  return new Promise((resolve, reject) => {
+    if (window.google && google.script && google.script.run) {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(e => reject(new Error((e && e.message) || 'Ralat sambungan')))
+        .api(action, payload || {});
+    } else if (API_URL) {
+      fetch(API_URL, {method: 'POST', headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify({action, payload})})
+        .then(r => r.json()).then(resolve, reject);
+    } else {
+      reject(new Error('Sistem belum disambungkan ke Google Sheet.'));
+    }
+  });
+}
+function busy(on, t) { $('#ovT').textContent = t || 'Sila tunggu…'; $('#ov').classList.toggle('on', !!on); }
+function showErr(id, msg) { const e = $(id); e.textContent = msg || ''; e.style.display = msg ? 'block' : 'none'; if (msg) e.scrollIntoView({behavior: 'smooth', block: 'center'}); }
+
+/* ---------- Muat konfigurasi ---------- */
+async function init() {
+  try {
+    const r = await api('config');
+    if (!r.ok) throw new Error(r.error);
+    st.cfg = r.cfg;
+  } catch (e) {
+    st.cfg = {hargaMeja: 1500, hargaKerusi: 150, kerusiPerMeja: 10, jumlahMeja: 15, pautanBayaran: 'https://infaqpay.my/plus/bppnsarawak-sumbangan', tarikhTempat: '', banner: '', meja: Array.from({length: 15}, (_, i) => ({no: i + 1, jumlah: 10, terpakai: 0, baki: 10})), offline: true};
+    showErr('#err', 'Tidak dapat memuatkan status meja terkini. ' + e.message);
+  }
+  const c = st.cfg;
+  $('#lblMeja').textContent = rm(c.hargaMeja) + ' / meja';
+  $('#lblKerusi').textContent = rm(c.hargaKerusi) + ' / kerusi';
+  if (c.tarikhTempat) $('#tarikhTempat').textContent = c.tarikhTempat;
+  if (c.banner) {
+    const img = new Image();
+    img.alt = 'Banner program';
+    img.onload = () => { $('#bannerPh').replaceWith(img); };
+    img.src = c.banner;
+  }
+  try {
+    const saved = JSON.parse(localStorage.getItem('pas30_last') || 'null');
+    if (saved && saved.siri) { $('#lsiri').value = saved.siri; $('#ltel').value = saved.tel || ''; }
+  } catch (e) {}
+  setMode('MEJA');
+}
+
+/* ---------- Mod ---------- */
+function setMode(m) {
+  st.mode = m; st.meja = null; st.qty = 1;
+  $$('#modes .mode').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+  $('#mejaCard').classList.toggle('hide', m === 'SUMBANGAN');
+  $('#sumCard').classList.toggle('hide', m !== 'SUMBANGAN');
+  $('#qtyBox').classList.toggle('hide', m !== 'KERUSI');
+  $('#mejaTitle').textContent = m === 'MEJA' ? 'Pilih nombor meja (hanya meja kosong)' : 'Pilih meja & bilangan kerusi';
+  renderMeja(); calc();
+}
+
+function renderMeja() {
+  const g = $('#mgrid'); g.innerHTML = '';
+  st.cfg.meja.forEach(m => {
+    const isFull = m.baki <= 0;
+    const ok = st.mode === 'MEJA' ? m.terpakai === 0 : m.baki > 0;
+    const b = document.createElement('button');
+    b.type = 'button';
+    let cls = 'tbl';
+    if (isFull) cls += ' full';
+    else if (!ok) cls += ' lock';
+    else if (m.terpakai > 0) cls += ' part';
+    if (st.meja === m.no) cls += ' sel';
+    b.className = cls;
+    b.disabled = !ok;
+    let dots = '';
+    for (let i = 0; i < m.jumlah; i++) dots += '<u class="' + (i < m.terpakai ? 'x' : '') + '"></u>';
+    const lbl = isFull ? 'Penuh' : (m.terpakai === 0 ? 'Kosong' : 'Baki ' + m.baki);
+    b.innerHTML = '<span class="no">' + m.no + '</span><span class="lbl">' + (!ok && !isFull ? 'Ada tempahan' : lbl) + '</span><span class="dots">' + dots + '</span>';
+    b.addEventListener('click', () => { st.meja = m.no; st.qty = 1; renderMeja(); calc(); });
+    g.appendChild(b);
+  });
+}
+
+function calc() {
+  const c = st.cfg; let total = 0, desc = '';
+  if (st.mode === 'MEJA') {
+    total = st.meja ? c.hargaMeja : 0;
+    desc = st.meja ? 'Meja ' + st.meja + ' (' + c.kerusiPerMeja + ' kerusi)' : 'Sila pilih meja';
+  } else if (st.mode === 'KERUSI') {
+    const m = st.meja ? c.meja[st.meja - 1] : null;
+    if (m) { st.qty = Math.min(Math.max(1, st.qty), m.baki); }
+    total = m ? st.qty * c.hargaKerusi : 0;
+    desc = m ? st.qty + ' kerusi di Meja ' + m.no : 'Sila pilih meja';
+    $('#qv').textContent = st.qty;
+    $('#qnote').textContent = m ? 'Baki ' + m.baki + ' kerusi di meja ini' : 'Pilih meja dahulu';
+  } else {
+    total = Number(st.amt) > 0 ? Number(st.amt) : 0;
+    desc = 'Sumbangan program';
+  }
+  $('#sumV').textContent = rm(total);
+  $('#sumD').textContent = desc;
+  return total;
+}
+
+/* ---------- Pengesahan borang ---------- */
+function formData() {
+  return {
+    jenis: st.mode, kategori: st.kat,
+    nama: $('#nama').value.trim(), tel: $('#tel').value.trim(), emel: $('#emel').value.trim(),
+    kp: $('#kp').value.trim(), org: $('#org').value.trim(), website: $('#website').value,
+    meja: st.meja, kerusi: st.qty, jumlah: st.amt
+  };
+}
+function validate(d) {
+  if (d.nama.length < 3) return 'Sila isi nama penuh.';
+  const t = d.tel.replace(/\D/g, '');
+  if (t.length < 9 || t.length > 12) return 'Sila isi no telefon yang sah.';
+  if (d.emel && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.emel)) return 'Format emel tidak sah.';
+  if (d.jenis !== 'SUMBANGAN' && !d.meja) return 'Sila pilih nombor meja.';
+  if (d.jenis === 'SUMBANGAN' && !(Number(d.jumlah) >= 1)) return 'Sila masukkan jumlah sumbangan.';
+  if (!$('#agree').checked) return 'Sila tandakan akuan persetujuan.';
+  return '';
+}
+
+/* ---------- Bayar ---------- */
+function openPay() {
+  const w = 480, h = 760;
+  const left = Math.max(0, (screen.width - w) / 2), top = Math.max(0, (screen.height - h) / 2);
+  return window.open('about:blank', 'infaqpay', 'popup=yes,width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',scrollbars=yes,resizable=yes');
+}
+function navPay(w) {
+  const url = st.cfg.pautanBayaran;
+  if (w && !w.closed) { try { w.location.href = url; w.focus(); return true; } catch (e) {} }
+  return false;
+}
+
+$('#payBtn').addEventListener('click', async () => {
+  const d = formData();
+  const msg = validate(d);
+  showErr('#err', msg);
+  if (msg) return;
+  st.popup = openPay();               // mesti dibuka serta-merta kerana klik pengguna
+  if (st.popup) { try { st.popup.document.write('<p style="font-family:sans-serif;padding:24px;color:#0b5d3b">Menyediakan pembayaran…</p>'); } catch (e) {} }
+  const btn = $('#payBtn'); btn.disabled = true;
+  busy(true, 'Menyimpan tempahan…');
+  try {
+    const r = await api('tempah', d);
+    if (!r.ok) throw new Error(r.error);
+    st.rec = r.record; st.tel = d.tel; st.cfg.meja = r.meja;
+    try { localStorage.setItem('pas30_last', JSON.stringify({siri: r.record.siri, tel: d.tel})); } catch (e) {}
+    gotoStep2();
+    if (!navPay(st.popup)) { /* pop-up disekat: pengguna boleh klik butang Buka Halaman Pembayaran */ }
+  } catch (e) {
+    if (st.popup && !st.popup.closed) st.popup.close();
+    showErr('#err', e.message);
+    try { const r = await api('meja'); if (r.ok) { st.cfg.meja = r.meja; if (st.meja && !(st.cfg.meja[st.meja - 1].baki >= (st.mode === 'MEJA' ? st.cfg.kerusiPerMeja : st.qty))) st.meja = null; renderMeja(); calc(); } } catch (x) {}
+  } finally { busy(false); btn.disabled = false; }
+});
+
+$('#reopen').addEventListener('click', () => {
+  const w = openPay();
+  if (!navPay(w)) window.open(st.cfg.pautanBayaran, '_blank');
+  st.popup = w;
+});
+
+/* ---------- Langkah ---------- */
+function setStep(n) {
+  $$('#steps div').forEach((d, i) => { d.className = i + 1 < n ? 'done' : (i + 1 === n ? 'on' : ''); });
+  $('#s1').classList.toggle('hide', n !== 1);
+  $('#s2').classList.toggle('hide', !(n === 2 || n === 3));
+  $('#s3').classList.toggle('hide', n !== 4);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function gotoStep2() {
+  const r = st.rec;
+  $('#siri2').textContent = r.siri; $('#siri2b').textContent = r.siri;
+  $('#amt2').textContent = rm2(r.jumlah);
+  st.file = null; $('#file').value = ''; $('#dropT').textContent = 'Pilih fail resit';
+  $('#dropS').textContent = 'Format: JPG, PNG, PDF (maksimum 8MB)'; $('#drop').classList.remove('has');
+  $('#sendBtn').disabled = true; showErr('#err2', '');
+  setStep(3);
+}
+
+/* ---------- Muat naik resit ---------- */
+$('#file').addEventListener('change', e => {
+  const f = e.target.files[0]; showErr('#err2', '');
+  if (!f) return;
+  const okType = /^(image\/(jpeg|png|webp|heic|heif)|application\/pdf)$/.test(f.type) || /\.(jpe?g|png|webp|heic|heif|pdf)$/i.test(f.name);
+  if (!okType) { showErr('#err2', 'Format fail tidak dibenarkan. Sila pilih JPG, PNG atau PDF.'); e.target.value = ''; return; }
+  if (f.size > 8 * 1024 * 1024) { showErr('#err2', 'Saiz fail melebihi 8MB.'); e.target.value = ''; return; }
+  st.file = f;
+  $('#dropT').textContent = f.name;
+  $('#dropS').textContent = (f.size / 1024 / 1024).toFixed(2) + ' MB · klik untuk tukar';
+  $('#drop').classList.add('has');
+  $('#sendBtn').disabled = false;
+});
+
+function mimeOf(f) {
+  if (f.type) return f.type === 'image/jpg' ? 'image/jpeg' : f.type;
+  const x = (f.name.split('.').pop() || '').toLowerCase();
+  return {jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', heic: 'image/heic', heif: 'image/heif', pdf: 'application/pdf'}[x] || '';
+}
+function toB64(f) {
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => res(String(fr.result).split(',')[1]);
+    fr.onerror = () => rej(new Error('Gagal membaca fail'));
+    fr.readAsDataURL(f);
+  });
+}
+
+$('#sendBtn').addEventListener('click', async () => {
+  if (!st.file) return;
+  const btn = $('#sendBtn'); btn.disabled = true; showErr('#err2', '');
+  busy(true, 'Menghantar resit…');
+  try {
+    const data = await toB64(st.file);
+    const r = await api('resit', {siri: st.rec.siri, tel: st.tel, mime: mimeOf(st.file), data});
+    if (!r.ok) throw new Error(r.error);
+    st.rec = r.record;
+    showStatement();
+  } catch (e) { showErr('#err2', e.message); btn.disabled = false; }
+  finally { busy(false); }
+});
+
+/* ---------- Penyata ---------- */
+function statusBadge(s) {
+  const cls = s === 'Disahkan' ? 'o' : (s === 'Ditolak' ? 'x' : 'w');
+  return '<span class="badge ' + cls + '">' + esc(s) + '</span>';
+}
+function showStatement() {
+  const r = st.rec;
+  const rows = [
+    ['No siri', '<b>' + esc(r.siri) + '</b>'],
+    ['Tarikh', esc(r.masa)],
+    ['Jenis', esc(JENIS[r.jenis] || r.jenis)],
+    ['Nama', esc(r.nama)],
+    ['Kategori', esc(r.kategori)],
+    ['No telefon', esc(r.tel)]
+  ];
+  if (r.meja) rows.push(['No meja', 'Meja ' + esc(r.meja)]);
+  if (r.jenis !== 'SUMBANGAN') rows.push(['Bilangan kerusi', esc(r.kerusi)]);
+  rows.push(['Jumlah', '<b>' + rm2(r.jumlah) + '</b>'], ['Status', statusBadge(r.status)]);
+  $('#stmt').innerHTML = rows.map(x => '<tr><td>' + x[0] + '</td><td>' + x[1] + '</td></tr>').join('');
+  const sah = r.status === 'Disahkan';
+  $('#thTitle').textContent = r.jenis === 'SUMBANGAN' ? 'Terima kasih atas sumbangan anda' : 'Terima kasih atas tempahan anda';
+  $('#thMsg').innerHTML = sah
+    ? 'Pembayaran anda telah <b>disahkan</b> oleh Sekretariat. Jazakumullahu khairan kathira.'
+    : 'Resit anda telah diterima dan kini <b>menunggu pengesahan</b> Sekretariat. Jazakumullahu khairan kathira atas sokongan anda.';
+  setStep(4);
+}
+
+$('#pdfBtn').addEventListener('click', () => {
+  if (!window.jspdf) { window.print(); return; }
+  makePDF(st.rec);
+});
+$('#againBtn').addEventListener('click', () => {
+  st.rec = null; st.meja = null; st.qty = 1; $('#agree').checked = false;
+  api('meja').then(r => { if (r.ok) st.cfg.meja = r.meja; }).finally(() => { setMode(st.mode); setStep(1); });
+});
+
+function makePDF(r) {
+  const {jsPDF} = window.jspdf;
+  const doc = new jsPDF({unit: 'mm', format: 'a4'});
+  const G = [11, 93, 59], GD = [6, 61, 39], GOLD = [212, 175, 55];
+  doc.setFillColor(...GD); doc.rect(0, 0, 210, 44, 'F');
+  doc.setFillColor(...GOLD); doc.rect(0, 44, 210, 2.2, 'F');
+  doc.setTextColor(...GOLD); doc.setFont('times', 'bold'); doc.setFontSize(22);
+  doc.text('MAKAN MALAM 30 TAHUN PAS SARAWAK', 105, 20, {align: 'center'});
+  doc.setFontSize(12); doc.setFont('helvetica', 'normal'); doc.setTextColor(246, 236, 192);
+  doc.text('Sekretariat Program', 105, 28, {align: 'center'});
+  doc.setFontSize(15); doc.setFont('helvetica', 'bold'); doc.setTextColor(255, 255, 255);
+  doc.text('PENYATA PEMBAYARAN', 105, 38, {align: 'center'});
+
+  doc.setFillColor(246, 236, 192); doc.setDrawColor(...GOLD); doc.setLineWidth(0.6);
+  doc.roundedRect(30, 56, 150, 22, 3, 3, 'FD');
+  doc.setTextColor(90, 100, 94); doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+  doc.text('NO SIRI PEMBAYARAN', 105, 63, {align: 'center'});
+  doc.setTextColor(...GD); doc.setFontSize(20); doc.setFont('times', 'bold');
+  doc.text(String(r.siri), 105, 73, {align: 'center'});
+
+  const rows = [
+    ['Tarikh', r.masa], ['Jenis', JENIS[r.jenis] || r.jenis], ['Nama', r.nama],
+    ['Kategori', r.kategori], ['No telefon', r.tel]
+  ];
+  if (r.org) rows.push(['Kawasan / Organisasi', r.org]);
+  if (r.meja) rows.push(['No meja', 'Meja ' + r.meja]);
+  if (r.jenis !== 'SUMBANGAN') rows.push(['Bilangan kerusi', String(r.kerusi)]);
+  rows.push(['Jumlah', rm2(r.jumlah)], ['Status', r.status]);
+
+  let y = 92;
+  doc.setDrawColor(227, 220, 195); doc.setLineWidth(0.3);
+  rows.forEach((x, i) => {
+    if (i % 2 === 0) { doc.setFillColor(250, 247, 235); doc.rect(25, y - 6, 160, 10, 'F'); }
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(90, 100, 94);
+    doc.text(x[0], 30, y);
+    const bold = x[0] === 'Jumlah' || x[0] === 'Status';
+    doc.setFont('helvetica', bold ? 'bold' : 'normal'); doc.setTextColor(29, 42, 36);
+    if (x[0] === 'Status') doc.setTextColor(...(r.status === 'Disahkan' ? G : [138, 104, 0]));
+    const lines = doc.splitTextToSize(String(x[1]), 100);
+    doc.text(lines, 80, y);
+    y += Math.max(10, lines.length * 5.5 + 4);
+  });
+
+  y += 8;
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.8); doc.line(25, y, 185, y);
+  y += 10;
+  doc.setFont('times', 'bold'); doc.setFontSize(15); doc.setTextColor(...G);
+  doc.text('Terima kasih atas sokongan dan sumbangan anda', 105, y, {align: 'center'});
+  y += 8;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5); doc.setTextColor(60, 70, 64);
+  const msg = doc.splitTextToSize('Semoga Allah SWT membalas kebaikan anda dengan sebaik-baik balasan. Jazakumullahu khairan kathira.', 140);
+  doc.text(msg, 105, y, {align: 'center'});
+  y += msg.length * 5 + 6;
+  doc.setFontSize(9); doc.setTextColor(120, 128, 122);
+  const note = doc.splitTextToSize('Penyata ini dijana oleh sistem. Pembayaran tertakluk kepada pengesahan oleh Sekretariat Program. Sila simpan penyata ini dan bawa bersama pada hari majlis.', 150);
+  doc.text(note, 105, y, {align: 'center'});
+
+  doc.setFillColor(...GD); doc.rect(0, 287, 210, 10, 'F');
+  doc.setTextColor(...GOLD); doc.setFontSize(8.5);
+  doc.text('Makan Malam 30 Tahun PAS Sarawak  |  ' + r.siri, 105, 293, {align: 'center'});
+  doc.save('Penyata-' + r.siri + '.pdf');
+}
+
+/* ---------- Semak status ---------- */
+$('#lookBtn').addEventListener('click', async () => {
+  const siri = $('#lsiri').value.trim(), tel = $('#ltel').value.trim();
+  showErr('#lerr', '');
+  if (!siri || !tel) { showErr('#lerr', 'Sila isi no siri dan no telefon.'); return; }
+  busy(true, 'Menyemak…');
+  try {
+    const r = await api('semak', {siri, tel});
+    if (!r.ok) throw new Error(r.error);
+    st.rec = r.record; st.tel = tel;
+    if (r.record.status === 'Menunggu Resit') gotoStep2(); else showStatement();
+  } catch (e) { showErr('#lerr', e.message); }
+  finally { busy(false); }
+});
+
+/* ---------- Peristiwa borang ---------- */
+$('#modes').addEventListener('click', e => { const b = e.target.closest('.mode'); if (b) { showErr('#err', ''); setMode(b.dataset.m); } });
+$('#kat').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  st.kat = b.dataset.k; $$('#kat .chip').forEach(c => c.classList.toggle('on', c === b));
+  $('#orgLbl').innerHTML = (st.kat === 'Orang Awam' ? 'Organisasi / Syarikat' : 'Kawasan / Cawangan') + ' <small>(pilihan)</small>';
+});
+$('#qm').addEventListener('click', () => { st.qty = Math.max(1, st.qty - 1); calc(); });
+$('#qp').addEventListener('click', () => {
+  const m = st.meja ? st.cfg.meja[st.meja - 1] : null;
+  if (m && st.qty < m.baki) st.qty++; calc();
+});
+$('#amts').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  st.amt = Number(b.dataset.a); $('#amt').value = st.amt;
+  $$('#amts .chip').forEach(c => c.classList.toggle('on', c === b)); calc();
+});
+$('#amt').addEventListener('input', e => {
+  st.amt = Number(e.target.value) || 0;
+  $$('#amts .chip').forEach(c => c.classList.toggle('on', Number(c.dataset.a) === st.amt)); calc();
+});
+
+init();
+</script>
+</body>
+</html>
