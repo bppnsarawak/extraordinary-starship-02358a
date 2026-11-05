@@ -26,7 +26,7 @@ body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans
   radial-gradient(circle at 15% 20%,rgba(212,175,55,.25) 0 90px,transparent 91px),
   radial-gradient(circle at 85% 80%,rgba(212,175,55,.2) 0 120px,transparent 121px),
   linear-gradient(135deg,var(--green-d),var(--green))}
-.banner .ph .t30{font-family:'Cinzel',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1}
+.banner .ph .t30{font-family:'Cinzel',serif;font-size:38px;font-weight:700;color:var(--gold);line-height:1.1;letter-spacing:3px}
 .banner .ph h1{margin:6px 0 2px;font-size:22px;font-weight:600}
 .banner .ph p{margin:0;color:var(--gold-l);font-size:14px}
 
@@ -85,14 +85,19 @@ input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(11,
 .qty button{width:38px;height:38px;border-radius:50%;border:2px solid var(--green);background:#fff;color:var(--green);font-size:20px;font-weight:700;cursor:pointer}
 .qty b{min-width:34px;text-align:center;font-size:20px}
 
+/* Poster */
+.poster{text-align:center;margin:18px 0 4px}
+.poster img{max-width:100%;max-height:640px;width:auto;height:auto;border-radius:14px;border:3px solid var(--gold);box-shadow:0 6px 22px rgba(6,61,39,.25);display:inline-block}
+.poster .note{margin-top:6px}
+
 /* Pelan dewan */
 .plan{background:linear-gradient(180deg,var(--green-l),#fff);border:1.5px solid var(--line);border-radius:14px;padding:14px 10px 12px;margin-bottom:16px}
 .stage{margin:0 auto 12px;max-width:70%;text-align:center;background:linear-gradient(135deg,var(--green-d),var(--green));color:var(--gold);border:2px solid var(--gold);border-radius:6px 6px 22px 22px;padding:8px 6px;font-family:'Cinzel',serif;font-weight:700;letter-spacing:3px;font-size:13px}
 .zone{font-size:11.5px;text-align:center;color:var(--muted);margin:10px 0 6px;font-weight:500}
 .zone b{color:var(--green)}
 .zone.sale b{color:var(--gold-d)}
-.fgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:520px;margin:0 auto}
-.ft{aspect-ratio:1;border-radius:50%;background:#e9e6d6;border:1.5px dashed #bdb89c;color:#8f8a70;display:grid;place-items:center;font-size:9px;font-weight:600}
+.fgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:420px;margin:0 auto}
+.ft{aspect-ratio:1;border-radius:50%;background:#e9e6d6;border:1.5px dashed #bdb89c;color:#8f8a70;display:grid;place-items:center;font-size:11px;font-weight:600}
 .pgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:420px;margin:0 auto}
 .pt{aspect-ratio:1;border-radius:50%;border:2px solid var(--green);background:var(--green-l);color:var(--green-d);font:inherit;font-weight:700;font-size:15px;display:grid;place-items:center;cursor:pointer;padding:0}
 .pt small{display:block;font-size:9px;font-weight:500;margin-top:-6px}
@@ -101,7 +106,7 @@ input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(11,
 .pt.sel{background:var(--green);color:var(--gold);border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.45)}
 .plan .door{text-align:center;font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:2px}
 .plan .illus{text-align:center;font-size:11.5px;font-style:italic;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
-@media (max-width:560px){.ft{font-size:0}.stage{max-width:90%}}
+@media (max-width:560px){.stage{max-width:90%}}
 
 /* Ringkasan */
 .sum{background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border-radius:14px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:2px solid var(--gold)}
@@ -157,7 +162,7 @@ footer b{color:var(--green)}
   .mgrid{grid-template-columns:repeat(3,1fr)}
   .hero h2{font-size:21px}
   .sum .v{font-size:23px}
-  .banner .ph .t30{font-size:44px}
+  .banner .ph .t30{font-size:26px;letter-spacing:2px}
 }
 </style>
 </head>
@@ -165,17 +170,23 @@ footer b{color:var(--green)}
 
 <div class="banner" id="banner">
   <div class="ph" id="bannerPh">
-    <div class="t30">30</div>
+    <div class="t30">UNTUKMU SARAWAK</div>
     <h1>Majlis Makan Malam 30 Tahun PAS Sarawak</h1>
-    <p>Bersama Memperkasa Perjuangan</p>
+    <p>Mengakar 30 tahun perjuangan bersama Islam</p>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hero">
     <h2>Tempahan &amp; Pembayaran</h2>
-    <p id="tarikhTempat">Makan Malam 30 Tahun PAS Sarawak</p>
+    <p id="tarikhTempat">21 November 2026 · 8.00 malam · Dewan Seri Kasih, Cheras, Selangor</p>
     <div class="divider"></div>
+  </div>
+
+  <!-- Poster: letak fail poster.jpg dalam folder yang sama dengan index.html -->
+  <div class="poster hide" id="posterBox">
+    <a href="poster.jpg" target="_blank" rel="noopener"><img src="poster.jpg" alt="Poster Makan Malam 30 Tahun PAS Sarawak" id="posterImg"></a>
+    <div class="note">Klik poster untuk paparan penuh</div>
   </div>
 
   <div class="steps" id="steps">
@@ -222,7 +233,7 @@ footer b{color:var(--green)}
       <h3><span class="n">3</span> <span id="mejaTitle">Pilih nombor meja</span></h3>
       <div class="plan" aria-label="Gambaran susun atur dewan">
         <div class="stage">PANGGUNG</div>
-        <div class="zone"><b id="frontN">20</b> meja hadapan, <b>dikhaskan</b> (tidak dibuka untuk tempahan)</div>
+        <div class="zone"><b id="frontN">15</b> meja hadapan, <b>dikhaskan</b> (tidak dibuka untuk tempahan)</div>
         <div class="fgrid" id="fgrid"></div>
         <div class="zone sale" style="margin-top:14px"><b>Meja 1 - 15</b> dibuka untuk tempahan anda</div>
         <div class="pgrid" id="pgrid"></div>
@@ -426,7 +437,7 @@ function renderMeja() {
 
 function pick(no) { st.meja = no; st.qty = 1; renderMeja(); calc(); }
 
-const FRONT_TABLES = 20;
+const FRONT_TABLES = 15;
 function renderPlan() {
   const f = $('#fgrid');
   if (f && !f.children.length) {
@@ -684,6 +695,10 @@ function makePDF(r) {
   doc.text(msg, 105, y, {align: 'center'});
   y += msg.length * 5 + 6;
   doc.setFontSize(9); doc.setTextColor(120, 128, 122);
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(...GD);
+  doc.text('Majlis: 21 November 2026, 8.00 malam  |  Dewan Seri Kasih, Cheras, Selangor', 105, y, {align: 'center'});
+  y += 8;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(120, 128, 122);
   const note = doc.splitTextToSize('Penyata ini dijana oleh sistem. Pembayaran tertakluk kepada pengesahan oleh Sekretariat Program. Sila simpan penyata ini dan bawa bersama pada hari majlis.', 150);
   doc.text(note, 105, y, {align: 'center'});
 
@@ -729,6 +744,14 @@ $('#amt').addEventListener('input', e => {
   st.amt = Number(e.target.value) || 0;
   $$('#amts .chip').forEach(c => c.classList.toggle('on', Number(c.dataset.a) === st.amt)); calc();
 });
+
+/* Papar poster hanya jika poster.jpg wujud */
+(function () {
+  const im = $('#posterImg');
+  const show = () => { if (im.naturalWidth > 0) $('#posterBox').classList.remove('hide'); };
+  im.addEventListener('load', show);
+  if (im.complete) show();
+})();
 
 init();
 </script>
